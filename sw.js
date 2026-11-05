@@ -1,5 +1,5 @@
 // Offline helper: keeps a copy of the app on the phone so it opens without internet.
-const CACHE = "ioreview-v5";
+const CACHE = "ioreview-v6";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon-180.png", "./icon-512.png"];
 
 self.addEventListener("install", e => {
