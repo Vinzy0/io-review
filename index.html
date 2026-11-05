@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0D0D0F">
+<meta name="theme-color" content="#0F1D33">
 <title>IO Psych Review</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -16,9 +16,10 @@
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500&family=Rubik:wght@500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0D0D0F;--surface:#17171A;--hover:#222226;--text:#ECEBE8;--muted:#8A8A8A;--faint:#55555A;
-  --action:#ECEBE8;--error:#E06A5A;--ink:#1A1A1A;
-  --healthy:#C3DDBF;--healthy-chip:#8FBF88;--attention:#EEDC9A;--attention-chip:#D9BE55;
+  --bg:#0F1D33;--surface:#172A47;--hover:#20375A;--text:#EAF1FB;--muted:#9AAECB;--faint:#566B8C;
+  --action:#BCD6F5;--error:#E8806F;--ink:#0F1D33;
+  --sky:#BCD6F5;--sky-soft:#DCE8F8;--sky-chip:#8DB6E8;
+  --berry:#F4A9BE;--berry-deep:#E57F9C;--leaf:#9ED2B5;
   --fast:120ms;--base:200ms;--ease:cubic-bezier(.2,.8,.2,1);--spring:cubic-bezier(.3,1.6,.5,1);
 }
 *{box-sizing:border-box;margin:0}
@@ -33,11 +34,11 @@ button:focus-visible{outline:2px solid var(--text);outline-offset:2px}
 .muted{color:var(--muted)}
 .num{font-variant-numeric:tabular-nums}
 
-.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .mark{font:500 18px Rubik,sans-serif;letter-spacing:-.02em}
-.mark i{font-style:normal;color:var(--attention)}
-.tabs{display:flex;gap:2px;background:var(--surface);border-radius:999px;padding:3px;position:relative}
-.tab{position:relative;z-index:1;padding:6px 12px;border-radius:999px;color:var(--muted);font-size:13px;transition:color var(--base) var(--ease)}
+.mark i{font-style:normal;color:var(--sky)}
+.tabs{display:flex;gap:2px;background:var(--surface);border-radius:999px;padding:3px;position:relative;margin-bottom:20px}
+.tab{flex:1;position:relative;z-index:1;padding:7px 12px;border-radius:999px;color:var(--muted);font-size:13px;transition:color var(--base) var(--ease)}
 .tab[aria-selected=true]{color:var(--text)}
 .pill{position:absolute;top:3px;bottom:3px;border-radius:999px;background:var(--hover);transition:left var(--base) var(--ease),width var(--base) var(--ease)}
 
@@ -50,7 +51,7 @@ button:focus-visible{outline:2px solid var(--text);outline-offset:2px}
 .tile .big{font:500 26px Rubik,sans-serif;letter-spacing:-.02em}
 .tile small{font-size:13px}
 .tile .act{font:500 11px Rubik,sans-serif;text-decoration:underline;text-underline-offset:3px;margin-top:4px}
-.t-attn{background:var(--attention)}.t-ok{background:var(--healthy)}
+.t-attn{background:var(--sky)}.t-ok{background:var(--sky-soft)}
 .tile[disabled]{cursor:default}
 
 .primary{display:block;width:100%;background:var(--action);color:var(--bg);font:500 15px Rubik,sans-serif;border-radius:12px;padding:13px;margin-bottom:22px}
@@ -60,7 +61,7 @@ button:focus-visible{outline:2px solid var(--text);outline-offset:2px}
 .row:hover{background:var(--hover)}
 .row .meta{font-size:12px;color:var(--muted)}
 .chip{font:500 11px Rubik,sans-serif;border-radius:6px;padding:2px 7px;color:var(--ink);white-space:nowrap}
-.c-ok{background:var(--healthy-chip)}.c-attn{background:var(--attention-chip)}
+.c-ok{background:var(--sky)}.c-attn{background:var(--sky-chip)}
 
 .stagger>*{animation:rise var(--base) var(--ease) both}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}}
@@ -74,12 +75,12 @@ button:focus-visible{outline:2px solid var(--text);outline-offset:2px}
 .opt:hover:not([disabled]){background:var(--hover)}
 .opt .k{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font:500 12px Rubik,sans-serif;background:var(--hover);transition:background var(--base),transform var(--base) var(--spring)}
 .opt[disabled]{cursor:default}
-.opt.right .k{background:var(--healthy-chip);color:var(--ink);transform:scale(1.1)}
+.opt.right .k{background:var(--sky);color:var(--ink);transform:scale(1.1)}
 .opt.wrong .k{background:var(--error);color:var(--ink)}
 .opt.dim{color:var(--faint)}
 .why{background:var(--surface);border-radius:14px;padding:14px;margin-top:12px;animation:rise var(--base) var(--ease) both}
 .why b{font:500 14px Rubik,sans-serif;display:block;margin-bottom:4px}
-.why .ok{color:var(--healthy)}.why .no{color:var(--error)}
+.why .ok{color:var(--sky)}.why .no{color:var(--error)}
 .next{margin-top:14px;margin-bottom:8px}
 .link{color:var(--muted);text-decoration:underline;text-underline-offset:3px;font-size:13px;padding:6px 0}
 .hint{font-size:12px;color:var(--muted);text-align:center}
@@ -108,18 +109,46 @@ button:focus-visible{outline:2px solid var(--text);outline-offset:2px}
 .danger{display:block;width:100%;background:var(--error);color:var(--ink);font:500 15px Rubik,sans-serif;border-radius:12px;padding:13px;margin-bottom:10px}
 .danger[disabled]{opacity:.35;cursor:default}
 .danger[disabled]:active{transform:none}
+.coins{position:relative;display:inline-flex;align-items:center;gap:6px;background:var(--surface);border-radius:999px;padding:5px 8px 5px 12px;font:500 15px Rubik,sans-serif;color:var(--text)}
+.coins svg{flex:none}
+.coins.bump{animation:bump 300ms var(--spring)}
+@keyframes bump{40%{transform:scale(1.12)}}
+.plus{position:absolute;right:4px;top:-4px;font:500 13px Rubik,sans-serif;color:var(--berry);pointer-events:none;animation:float 900ms var(--ease) forwards}
+@keyframes float{from{opacity:0;transform:translateY(6px)}20%{opacity:1}to{opacity:0;transform:translateY(-18px)}}
+.goal{display:block;width:100%;text-align:left;background:var(--surface);border-radius:14px;padding:12px 14px;margin-bottom:18px}
+.goal:hover{background:var(--hover)}
+.goal .line{display:flex;justify-content:space-between;gap:10px;font-size:14px;margin-bottom:8px}
+.goal .meta{font-size:12px;color:var(--muted)}
+.track{height:6px;background:var(--hover);border-radius:6px;overflow:hidden}
+.track>div{height:100%;background:var(--berry);border-radius:6px;transition:width 600ms var(--ease)}
+.price{font:500 13px Rubik,sans-serif;color:var(--berry);white-space:nowrap}
+.redeem{background:var(--berry);color:var(--ink);font:500 13px Rubik,sans-serif;border-radius:10px;padding:8px 12px;white-space:nowrap}
+.redeem[disabled]{background:var(--hover);color:var(--muted);cursor:default}
+.redeem[disabled]:active{transform:none}
+.reward .meta{display:block;margin-top:2px}
+.coupon{background:var(--berry);color:var(--ink);border-radius:18px;padding:22px 20px;margin-bottom:14px;text-align:center;position:relative;overflow:hidden}
+.coupon .for{font-size:13px;opacity:.75}
+.coupon .what{font:500 28px Rubik,sans-serif;letter-spacing:-.02em;margin:6px 0 10px}
+.coupon .code{display:inline-block;font:500 16px Rubik,sans-serif;letter-spacing:.12em;background:rgba(15,29,51,.1);border-radius:8px;padding:6px 12px;margin-bottom:10px}
+.coupon .when{font-size:12px;opacity:.75}
+.coupon .notch{position:absolute;top:50%;width:22px;height:22px;border-radius:50%;background:var(--bg);transform:translateY(-50%)}
+.coupon .notch.l{left:-11px}.coupon .notch.r{right:-11px}
+.mine{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.mine .code{font:500 12px Rubik,sans-serif;letter-spacing:.08em;color:var(--berry)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:color var(--fast),background var(--fast)!important}}
 </style>
 </head>
 <body>
 <header class="top">
   <span class="mark">ioreview<i>.</i></span>
-  <nav class="tabs" role="tablist" id="tabs">
-    <span class="pill" id="pill"></span>
-    <button class="tab press" role="tab" data-tab="home">Quiz</button>
-    <button class="tab press" role="tab" data-tab="cards">Flashcards</button>
-  </nav>
+  <button class="coins press" id="coins" aria-label="Strawberry coins"><span id="coin-n" class="num">0</span></button>
 </header>
+<nav class="tabs" role="tablist" id="tabs">
+  <span class="pill" id="pill"></span>
+  <button class="tab press" role="tab" data-tab="home">Quiz</button>
+  <button class="tab press" role="tab" data-tab="cards">Flashcards</button>
+  <button class="tab press" role="tab" data-tab="shop">Rewards</button>
+</nav>
 <main id="app"></main>
 
 <script>
@@ -135,6 +164,27 @@ let seen = store.get("seen2", {});
 const byText = new Map(Q.map((q, i) => [q.q, i]));
 const missIdx = () => Object.keys(mistakes).filter(t => byText.has(t)).map(t => byText.get(t));
 const app = document.getElementById("app");
+// Strawberry coins: +10 per correct answer, +5 if the hint was used, 0 if wrong. Never reset by "Reset all progress".
+const REWARDS = [
+  { id: "stickers", name: "Cute stickers", cost: 2000 },
+  { id: "libre", name: "1 libre", sub: "A treat of your choice, on Vinzy", cost: 5000 },
+  { id: "sushi", name: "Sushi", cost: 8000 },
+  { id: "gift", name: "Gift from Vinzy", cost: 10000 },
+  { id: "date", name: "Date with Vinzy", cost: 15000 },
+];
+let coins = store.get("coins", 0);
+let coupons = store.get("coupons", []);
+const fmt = n => n.toLocaleString("en-US");
+const BERRY = '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7.2c-4.6 0-7.3 2.3-7.3 5.6 0 4.4 4.1 8.4 7.3 8.4s7.3-4 7.3-8.4c0-3.3-2.7-5.6-7.3-5.6z" fill="#F4A9BE"/><path d="M12 8.4c-1.6-.3-3.4-1.5-4.2-3 1.9-.3 3.2.2 4.2 1.2 1-1 2.3-1.5 4.2-1.2-.8 1.5-2.6 2.7-4.2 3z" fill="#9ED2B5"/><path d="M12 6.8V3.6" stroke="#9ED2B5" stroke-width="1.6" stroke-linecap="round"/><g fill="#0F1D33" opacity=".55"><circle cx="9" cy="12" r=".8"/><circle cx="12" cy="11" r=".8"/><circle cx="15" cy="12" r=".8"/><circle cx="10.4" cy="15" r=".8"/><circle cx="13.6" cy="15" r=".8"/><circle cx="12" cy="18" r=".8"/></g></svg>';
+function showCoins(){ document.getElementById("coin-n").textContent = fmt(coins) }
+function addCoins(n){
+  coins += n; store.set("coins", coins); showCoins();
+  const pill = document.getElementById("coins");
+  pill.classList.remove("bump"); void pill.offsetWidth; pill.classList.add("bump");
+  const plus = document.createElement("span"); plus.className = "plus"; plus.textContent = "+" + n;
+  pill.appendChild(plus); setTimeout(() => plus.remove(), 950);
+}
+const nextReward = () => REWARDS.find(r => r.cost > coins) || null;
 // can this browser keep progress? (iPhone file previews and some in-app viewers can't)
 const canSave = (() => { try { localStorage.setItem("io_t", "1"); localStorage.removeItem("io_t"); return location.protocol !== "file:" } catch { return false } })();
 const PEP = [
@@ -167,7 +217,7 @@ function setTab(name){
 }
 document.getElementById("tabs").addEventListener("click", e => {
   const b = e.target.closest(".tab"); if (!b) return;
-  b.dataset.tab === "cards" ? cards() : home();
+  b.dataset.tab === "cards" ? cards() : b.dataset.tab === "shop" ? shop() : home();
 });
 
 function home(){
@@ -189,6 +239,7 @@ function home(){
         <span class="big num"><span id="sn">0</span><span class="of">/${Q.length}</span></span><small>questions done</small>
       </div>
     </div>
+    ${goalHTML()}
     <button class="primary press" id="go">Start a mixed 20</button>
     <p class="label">Practice by topic</p>
     <div class="rows stagger" id="sets"></div>
@@ -212,6 +263,7 @@ function home(){
   });
   document.getElementById("go").onclick = () => quiz(shuffle(idx).slice(0, 20), "mixed");
   document.getElementById("reset").onclick = confirmReset;
+  document.getElementById("goal").onclick = shop;
   if (nMiss) document.getElementById("redo").onclick = () => quiz(shuffle(missIdx()), "redo");
 }
 
@@ -219,7 +271,7 @@ function confirmReset(){
   const nSeen = Object.keys(seen).length, nMiss = Object.keys(mistakes).length;
   app.innerHTML = `
     <h1 class="hero">Reset everything?</h1>
-    <p class="sub num">This erases ${nSeen} done ${nSeen === 1 ? "question" : "questions"}, ${nMiss} ${nMiss === 1 ? "mistake" : "mistakes"} to redo, and every best score. It can't be undone.</p>
+    <p class="sub num">This erases ${nSeen} done ${nSeen === 1 ? "question" : "questions"}, ${nMiss} ${nMiss === 1 ? "mistake" : "mistakes"} to redo, and every best score. It can't be undone. Your strawberry coins and coupons are kept.</p>
     <label class="label" for="rc">Type RESET to confirm</label>
     <input id="rc" class="input" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false">
     <button class="danger press" id="rgo" disabled>Erase all progress</button>
@@ -275,7 +327,7 @@ function quiz(list, key){
     const qi = list[i], q = Q[qi];
     picks[i] = n;
     seen[q.q] = 1; store.set("seen2", seen);
-    if (n === q.ans) { score++; delete mistakes[q.q] } else { mistakes[q.q] = 1; wrongNow.push(qi) }
+    if (n === q.ans) { score++; delete mistakes[q.q]; addCoins(hinted[i] ? 5 : 10) } else { mistakes[q.q] = 1; wrongNow.push(qi) }
     store.set("mistakes2", mistakes);
     reveal(n, true);
   }
@@ -321,6 +373,78 @@ function quiz(list, key){
   };
 }
 
+function goalHTML(){
+  const nx = nextReward();
+  if (!nx) return `<button class="goal press" id="goal"><div class="line"><span>Every reward is unlocked</span><span class="price num">${fmt(coins)}</span></div><div class="track"><div style="width:100%"></div></div></button>`;
+  const prev = [...REWARDS].reverse().find(r => r.cost <= coins);
+  const left = Math.ceil((nx.cost - coins) / 10);
+  return `<button class="goal press" id="goal">
+    <div class="line"><span>Next reward: ${esc(nx.name)}</span><span class="price num">${fmt(coins)} / ${fmt(nx.cost)}</span></div>
+    <div class="track"><div style="width:${Math.min(100, coins / nx.cost * 100)}%"></div></div>
+    <p class="meta num" style="margin-top:6px">${fmt(left)} more correct ${left === 1 ? "answer" : "answers"}${prev ? `. ${esc(prev.name)} is ready to redeem.` : ""}</p>
+  </button>`;
+}
+
+function shop(){
+  setTab("shop");
+  document.onkeydown = null;
+  app.innerHTML = `
+    <h1 class="hero"><span class="num">${fmt(coins)}</span> strawberry coins</h1>
+    <p class="sub">10 for every correct answer, 5 if you used the hint. Redoing mistakes counts too.</p>
+    <div class="rows stagger" id="rw"></div>
+    ${coupons.length ? `<p class="label" style="margin-top:22px">My coupons</p><div class="rows" id="mine"></div>` : ""}`;
+  const rw = document.getElementById("rw");
+  REWARDS.forEach((r, n) => {
+    const can = coins >= r.cost;
+    const row = document.createElement("div");
+    row.className = "row reward"; row.style.animationDelay = n * 70 + "ms";
+    row.innerHTML = `<span><span>${esc(r.name)}</span><span class="meta">${r.sub ? esc(r.sub) + ". " : ""}<span class="price num">${fmt(r.cost)}</span></span></span>
+      <button class="redeem press" ${can ? "" : "disabled"}>${can ? "Redeem" : `${fmt(r.cost - coins)} to go`}</button>`;
+    if (can) row.querySelector(".redeem").onclick = () => confirmRedeem(r);
+    rw.appendChild(row);
+  });
+  const mine = document.getElementById("mine");
+  if (mine) [...coupons].reverse().forEach(c => {
+    const row = document.createElement("button");
+    row.className = "row mine press";
+    row.innerHTML = `<span><span>${esc(c.name)}</span><br><span class="meta">${esc(c.date)}</span></span><span class="code">${esc(c.code)}</span>`;
+    row.onclick = () => coupon(c);
+    mine.appendChild(row);
+  });
+}
+
+function confirmRedeem(r){
+  app.innerHTML = `
+    <h1 class="hero">Redeem ${esc(r.name)}?</h1>
+    <p class="sub num">This uses ${fmt(r.cost)} of your ${fmt(coins)} strawberry coins. You'll get a coupon to send to Vinzy.</p>
+    <button class="primary press" id="yes">Redeem for ${fmt(r.cost)}</button>
+    <button class="secondary press" id="no" style="width:100%">Not yet</button>`;
+  document.getElementById("no").onclick = shop;
+  document.getElementById("yes").onclick = () => {
+    if (coins < r.cost) return shop();
+    const a = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789", b = new Uint32Array(5);
+    crypto.getRandomValues(b);
+    const c = { name: r.name, code: "SB-" + [...b].map(x => a[x % a.length]).join(""),
+                date: new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) };
+    coins -= r.cost; store.set("coins", coins); showCoins();
+    coupons.push(c); store.set("coupons", coupons);
+    coupon(c);
+  };
+}
+
+function coupon(c){
+  app.innerHTML = `
+    <div class="coupon"><span class="notch l"></span><span class="notch r"></span>
+      <div class="for">Coupon for Vinzy's girlfriend</div>
+      <div class="what">${esc(c.name)}</div>
+      <div class="code">${esc(c.code)}</div>
+      <div class="when">Redeemed ${esc(c.date)}</div>
+    </div>
+    <p class="sub" style="text-align:center">Screenshot this and send it to Vinzy.</p>
+    <button class="primary press" id="ok">Back to rewards</button>`;
+  document.getElementById("ok").onclick = shop;
+}
+
 function cards(){
   setTab("cards");
   let deck = shuffle(FC.map((_, i) => i)), i = 0, flipped = false, again = [];
@@ -358,6 +482,9 @@ function cards(){
   };
 }
 
+document.getElementById("coins").insertAdjacentHTML("beforeend", BERRY);
+showCoins();
+document.getElementById("coins").onclick = () => shop();
 home();
 if ("serviceWorker" in navigator && isSecureContext) navigator.serviceWorker.register("sw.js").catch(() => {});
 const remeasure = () => setTab(document.querySelector(".tab[aria-selected=true]").dataset.tab);
